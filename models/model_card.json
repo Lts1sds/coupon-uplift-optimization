@@ -1,0 +1,56 @@
+{
+  "main_model": "DR-Learner + sklearn backend",
+  "backend": "sklearn",
+  "feature_cols": [
+    "f0",
+    "f1",
+    "f2",
+    "f3",
+    "f4",
+    "f5",
+    "f6",
+    "f7",
+    "f8",
+    "f9",
+    "f10",
+    "f11"
+  ],
+  "target": "tau_profit = E[profit|treatment=1,x] - E[profit|treatment=0,x]",
+  "ranking_rule": "predicted_tau_profit / coupon_cost",
+  "data": {
+    "data_source": "data\\criteo_profit_uplift_sample500000_seed42.csv.gz",
+    "cache_used": "true"
+  },
+  "config": {
+    "data_path": "",
+    "sample_size": 500000,
+    "budget": 25000.0,
+    "seed": 42,
+    "backend": "sklearn",
+    "n_folds": 3,
+    "n_bootstrap": 50,
+    "data_dir": "data",
+    "no_cache_data": false,
+    "no_save_data": false,
+    "model_dir": "models",
+    "no_save_model": false,
+    "output_dir": "outputs_criteo",
+    "backend_resolved": "sklearn"
+  },
+  "models": {
+    "cvr_model": "models\\cvr_model.pkl",
+    "gmv_model": "models\\gmv_model.pkl",
+    "t_learner_mu1_model": "models\\t_learner_mu1_model.pkl",
+    "t_learner_mu0_model": "models\\t_learner_mu0_model.pkl",
+    "dr_tau_model": "models\\dr_tau_model.pkl",
+    "dr_mu1_model": "models\\dr_mu1_model.pkl",
+    "dr_mu0_model": "models\\dr_mu0_model.pkl",
+    "dr_propensity_model": "models\\dr_propensity_model.pkl"
+  },
+  "load_example": "payload = pickle.load(open('models/dr_tau_model.pkl', 'rb')); model = payload['model']; model.predict(df[payload['feature_cols']])",
+  "notes": [
+    "dr_tau_model.pkl is the production scoring model for predicted incremental profit.",
+    "dr_mu1_model.pkl, dr_mu0_model.pkl and dr_propensity_model.pkl are nuisance models for audit/AIPW evaluation.",
+    "t_learner_mu1_model.pkl and t_learner_mu0_model.pkl reproduce the T-Learner baseline."
+  ]
+}

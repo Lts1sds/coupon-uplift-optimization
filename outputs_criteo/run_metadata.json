@@ -1,0 +1,17 @@
+{
+  "data_source": "data\\criteo_profit_uplift_sample500000_seed42.csv.gz",
+  "cache_used": "true",
+  "model_dir": "models",
+  "model_card": "models\\model_card.json",
+  "backend": "sklearn",
+  "budget": 25000.0,
+  "n_test": 175000,
+  "n_bootstrap": 50,
+  "diagnostics": {
+    "conversion_auc": 0.6872400333623062,
+    "dr_tau_corr": 0.6883422739347094,
+    "t_tau_corr": 0.588158558965148,
+    "crossfit_folds": 3.0
+  },
+  "main_model": "DR-Learner + sklearn backend"
+}
