@@ -116,6 +116,19 @@ Random incremental_profit = -470.26
 
 可以看到，CVR/GMV 模型虽然能找到“高价值用户”，但不一定能找到“高增量用户”。T-Learner 是一个很强的基线，在较小预算下会更激进；我最终把 DR-Learner 作为主方案，是因为它在固定预算主指标上略优，同时 Qini、校准和反事实评估口径更稳，更贴近这个业务问题本身。
 
+## 主要图表
+
+<p>
+  <img src="outputs_criteo/strategy_comparison.png" alt="Strategy Comparison" width="49%">
+  <img src="outputs_criteo/budget_profit_curve.png" alt="Budget Sensitivity" width="49%">
+</p>
+<p>
+  <img src="outputs_criteo/qini_curve.png" alt="Qini Curve" width="49%">
+  <img src="outputs_criteo/uplift_calibration.png" alt="Uplift Decile Calibration" width="49%">
+</p>
+
+更细的数值明细在 `outputs_criteo/` 目录下的 CSV 文件里。
+
 ## 复现
 
 安装依赖：
