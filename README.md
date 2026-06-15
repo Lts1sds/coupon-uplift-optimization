@@ -114,7 +114,7 @@ GMV Targeting incremental_profit = 859.87
 Random incremental_profit = -470.26
 ```
 
-可以看到，CVR/GMV 模型虽然能找到“高价值用户”，但不一定能找到“高增量用户”；DR-Learner 更贴近这个业务问题本身。
+可以看到，CVR/GMV 模型虽然能找到“高价值用户”，但不一定能找到“高增量用户”。T-Learner 是一个很强的基线，在较小预算下会更激进；我最终把 DR-Learner 作为主方案，是因为它在固定预算主指标上略优，同时 Qini、校准和反事实评估口径更稳，更贴近这个业务问题本身。
 
 ## 复现
 

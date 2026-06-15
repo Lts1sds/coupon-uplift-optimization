@@ -978,7 +978,7 @@ def save_calibration_plot(calibration: pd.DataFrame, output_path: Path) -> None:
     plt.figure(figsize=(8, 5))
     plt.plot(calibration["decile"], calibration["avg_predicted_tau_profit"], marker="o", label="Predicted")
     plt.plot(calibration["decile"], calibration["avg_true_tau_profit"], marker="s", label="True")
-    plt.gca().invert_xaxis()
+    plt.xticks(calibration["decile"])
     plt.xlabel("Predicted uplift decile (1 = highest)")
     plt.ylabel("Average tau_profit")
     plt.title("Uplift Decile Calibration")
