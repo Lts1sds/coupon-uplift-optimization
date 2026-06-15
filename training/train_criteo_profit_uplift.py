@@ -38,6 +38,14 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 try:
+    import numpy.typing as npt
+
+    if not hasattr(npt, "NDArray"):
+        class _CompatNDArray:
+            def __class_getitem__(cls, item):
+                return object
+
+        npt.NDArray = _CompatNDArray
     import matplotlib
 
     matplotlib.use("Agg")
@@ -923,6 +931,7 @@ def save_qini_plot(curves: Dict[str, pd.DataFrame], output_path: Path) -> None:
     plt.xlabel("Population fraction ranked by score")
     plt.ylabel("Qini gain (observed profit)")
     plt.title("Qini Curve")
+    plt.grid(alpha=0.25)
     plt.legend(fontsize=8)
     plt.tight_layout()
     plt.savefig(output_path, dpi=160)
@@ -944,6 +953,7 @@ def save_budget_plot(budget_curve: pd.DataFrame, output_path: Path) -> None:
     plt.xlabel("Budget")
     plt.ylabel("Incremental profit")
     plt.title("Budget Sensitivity")
+    plt.grid(alpha=0.25)
     plt.legend(fontsize=8)
     plt.tight_layout()
     plt.savefig(output_path, dpi=160)
@@ -972,6 +982,7 @@ def save_calibration_plot(calibration: pd.DataFrame, output_path: Path) -> None:
     plt.xlabel("Predicted uplift decile (1 = highest)")
     plt.ylabel("Average tau_profit")
     plt.title("Uplift Decile Calibration")
+    plt.grid(alpha=0.25)
     plt.legend()
     plt.tight_layout()
     plt.savefig(output_path, dpi=160)
@@ -990,10 +1001,14 @@ def save_strategy_plot(strategy_comparison: pd.DataFrame, output_path: Path) -> 
     ax1.set_ylabel("Incremental profit")
     ax1.set_xticks(x)
     ax1.set_xticklabels(strategy_comparison["strategy"], rotation=25, ha="right")
+    ax1.grid(axis="y", alpha=0.25)
 
     ax2 = ax1.twinx()
     ax2.plot(x, strategy_comparison["roi"], color="#F58518", marker="o", label="ROI")
     ax2.set_ylabel("ROI")
+    handles1, labels1 = ax1.get_legend_handles_labels()
+    handles2, labels2 = ax2.get_legend_handles_labels()
+    ax1.legend(handles1 + handles2, labels1 + labels2, loc="upper right", fontsize=8)
     fig.suptitle("Strategy Comparison")
     fig.tight_layout()
     fig.savefig(output_path, dpi=160)
